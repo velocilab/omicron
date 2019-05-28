@@ -12,18 +12,21 @@ export default class PlayScene extends Scene {
     bomb.setCollideWorldBounds(true)
     bomb.body.onWorldBounds = true // enable worldbounds collision event
     bomb.setBounce(1)
-    bomb.setVelocity(200, 20)
+    bomb.setVelocity(100, 20)
 
     this.sound.add('thud')
     this.physics.world.on('worldbounds', () => {
       this.sound.play('thud', { volume: 0.75 });
-      const emitter = new Phaser.Events.EventEmitter();
-      emitter.emit("hmm");
+      // const emitter = new Phaser.Events.EventEmitter();
+      // emitter.emit("hmm");
     });
 
     this.input.keyboard.on('keydown_D', event => {
-      console.log("GOT KEY D");
-      bomb.x += 10;
+      bomb.setVelocityX( bomb.body.velocity.x + 50 );
+    });
+
+    this.input.keyboard.on('keydown_A', event => {
+      bomb.setVelocityX( bomb.body.velocity.x - 50 );
     });
   }
 
